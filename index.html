@@ -233,7 +233,7 @@ const Ico=({d,s=16,c})=>(
     <path d={d}/>
   </svg>
 );
-const D={
+const IC={
   x:'M18 6L6 18M6 6l12 12', plus:'M12 5v14M5 12h14', trash:'M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6',
   save:'M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2zM17 21v-8H7v8M7 3v5h8',
   eye:'M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8zM12 9a3 3 0 100 6 3 3 0 000-6z',
@@ -267,7 +267,7 @@ const Modal=({open,close,title,children})=>{
       <div className="modal fade">
         <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:16}}>
           <h3 style={{fontSize:16,fontWeight:600}}>{title}</h3>
-          <button className="btn btn-g" style={{padding:'4px 6px'}} onClick={close}><Ico d={D.x} s={16}/></button>
+          <button className="btn btn-g" style={{padding:'4px 6px'}} onClick={close}><Ico d={IC.x} s={16}/></button>
         </div>
         {children}
       </div>
@@ -353,7 +353,7 @@ const Dashboard=({D:appData,onNav})=>{
             </div>
           ):(
             <button className="btn btn-p" style={{width:'100%',justifyContent:'center'}} onClick={e=>{e.stopPropagation();onNav('budget')}}>
-              <Ico d={D.plus} s={15}/> Créer le budget du mois
+              <Ico d={IC.plus} s={15}/> Créer le budget du mois
             </button>
           )}
         </div>
@@ -399,9 +399,9 @@ const MNav=({ym,setYm})=>{
   const go=dir=>{const[y,m]=ym.split('-').map(Number);const d=new Date(y,m-1+dir,1);if(dir>0&&d>new Date())return;setYm(toYM(d));};
   return(
     <div style={{display:'flex',alignItems:'center',gap:8}}>
-      <button className="btn btn-g btn-sm" style={{padding:'5px 8px'}} onClick={()=>go(-1)}><Ico d={D.chL} s={16}/></button>
+      <button className="btn btn-g btn-sm" style={{padding:'5px 8px'}} onClick={()=>go(-1)}><Ico d={IC.chL} s={16}/></button>
       <span style={{flex:1,textAlign:'center',fontSize:17,fontWeight:700,letterSpacing:'-0.01em'}}>{mFull(ym)}</span>
-      <button className="btn btn-g btn-sm" style={{padding:'5px 8px'}} onClick={()=>go(1)}><Ico d={D.chR} s={16}/></button>
+      <button className="btn btn-g btn-sm" style={{padding:'5px 8px'}} onClick={()=>go(1)}><Ico d={IC.chR} s={16}/></button>
     </div>
   );
 };
@@ -685,7 +685,7 @@ const BudgetMensuel=({D:appData,setD:setAppData,settings,showToast})=>{
         <div style={{fontSize:56,marginBottom:16}}>📅</div>
         <h3 style={{fontSize:18,fontWeight:600,marginBottom:8}}>{mFull(ym)}</h3>
         <p style={{color:'var(--tx2)',marginBottom:24}}>Aucun budget pour ce mois</p>
-        <button className="btn btn-p" onClick={createM}><Ico d={D.plus} s={15}/> Créer le budget</button>
+        <button className="btn btn-p" onClick={createM}><Ico d={IC.plus} s={15}/> Créer le budget</button>
       </div>
     </div>
   );
@@ -696,8 +696,8 @@ const BudgetMensuel=({D:appData,setD:setAppData,settings,showToast})=>{
         <MNav ym={ym} setYm={setYm}/>
         <div style={{display:'flex',alignItems:'center',gap:8,marginTop:12}}>
           <span className="badge bb">{m.versions.length} version{m.versions.length>1?'s':''}</span>
-          <button className="btn btn-s btn-sm" onClick={()=>saveVer('')}><Ico d={D.save} s={13}/> Sauvegarder</button>
-          <button className="btn btn-g btn-sm" onClick={()=>setShowVer(true)}><Ico d={D.eye} s={13}/> Historique</button>
+          <button className="btn btn-s btn-sm" onClick={()=>saveVer('')}><Ico d={IC.save} s={13}/> Sauvegarder</button>
+          <button className="btn btn-g btn-sm" onClick={()=>setShowVer(true)}><Ico d={IC.eye} s={13}/> Historique</button>
         </div>
       </div>
       <SummaryBar calc={calc} s={settings}/>
@@ -723,7 +723,7 @@ const BudgetMensuel=({D:appData,setD:setAppData,settings,showToast})=>{
         }
         <div style={{marginTop:16,display:'flex',flexDirection:'column',gap:8}}>
           <input className="ifield" placeholder="Nom de la version (optionnel)" value={verLbl} onChange={e=>setVerLbl(e.target.value)}/>
-          <button className="btn btn-p" style={{justifyContent:'center'}} onClick={()=>saveVer(verLbl)}><Ico d={D.save} s={14}/> Nouvelle sauvegarde</button>
+          <button className="btn btn-p" style={{justifyContent:'center'}} onClick={()=>saveVer(verLbl)}><Ico d={IC.save} s={14}/> Nouvelle sauvegarde</button>
         </div>
       </Modal>
     </div>
@@ -788,7 +788,7 @@ const SuiviMois=({D:appData,setD:setAppData,settings,showToast})=>{
         return(
           <div key={item.id} style={{display:'flex',alignItems:'center',gap:12,padding:'12px 14px',background:'var(--surf)',border:`1px solid ${isDone?'rgba(46,160,67,.3)':'var(--brd)'}`,borderRadius:10,marginBottom:8,transition:'all .15s'}}>
             <button onClick={()=>updT(item.id,{status:isDone?'pending':'done'})} style={{width:24,height:24,borderRadius:6,border:`2px solid ${isDone?'var(--gr)':'var(--brd)'}`,background:isDone?'var(--gr)':'transparent',cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0,transition:'all .15s'}}>
-              {isDone&&<Ico d={D.chk} s={12} c="#fff"/>}
+              {isDone&&<Ico d={IC.chk} s={12} c="#fff"/>}
             </button>
             <div style={{flex:1,minWidth:0}}>
               <p style={{fontSize:14,fontWeight:500,color:isDone?'var(--tx3)':'var(--tx)',textDecoration:isDone?'line-through':'none',marginBottom:1}}>{item.l}</p>
@@ -851,8 +851,8 @@ const Epargne=({D:appData,setD:setAppData,settings,showToast})=>{
             </div>
             {a.monthly>0&&<p style={{fontSize:12,color:'var(--tx3)',marginBottom:10}}>+{eur(a.monthly)}/mois prévu</p>}
             <div style={{display:'flex',gap:8,marginBottom:txs.length?12:0}}>
-              <button className="btn btn-s btn-sm" style={{flex:1,justifyContent:'center'}} onClick={()=>setModal({id:a.id,type:'credit'})}><Ico d={D.up} s={13}/> Versement</button>
-              <button className="btn btn-d btn-sm" style={{flex:1,justifyContent:'center'}} onClick={()=>setModal({id:a.id,type:'debit'})}><Ico d={D.dn} s={13}/> Dépense</button>
+              <button className="btn btn-s btn-sm" style={{flex:1,justifyContent:'center'}} onClick={()=>setModal({id:a.id,type:'credit'})}><Ico d={IC.up} s={13}/> Versement</button>
+              <button className="btn btn-d btn-sm" style={{flex:1,justifyContent:'center'}} onClick={()=>setModal({id:a.id,type:'debit'})}><Ico d={IC.dn} s={13}/> Dépense</button>
             </div>
             {txs.length>0&&(
               <>
@@ -980,7 +980,7 @@ const Parametrage=({D:appData,setD:setAppData,showToast})=>{
               <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:12}}>
                 <p style={{fontSize:15,fontWeight:600}}>Postes Maison</p>
                 <button className="btn btn-s btn-sm" onClick={()=>updS(st=>({...st,maison_items:[...st.maison_items,{id:'item_'+Date.now(),label:'Nouveau poste',def:0,ass:0,calc:false,variable:false}]}))}>
-                  <Ico d={D.plus} s={13}/> Ajouter
+                  <Ico d={IC.plus} s={13}/> Ajouter
                 </button>
               </div>
               {s.maison_items.map(it=>(
@@ -991,7 +991,7 @@ const Parametrage=({D:appData,setD:setAppData,showToast})=>{
                       :<input className="ifield" value={it.label} onChange={e=>updS(st=>({...st,maison_items:st.maison_items.map(x=>x.id===it.id?{...x,label:e.target.value}:x)}))}/>
                     }
                     {!it.calc&&<button className="btn btn-g" style={{padding:'4px 6px',color:'var(--rd)'}} onClick={()=>updS(st=>({...st,maison_items:st.maison_items.filter(x=>x.id!==it.id)}))}>
-                      <Ico d={D.trash} s={14}/>
+                      <Ico d={IC.trash} s={14}/>
                     </button>}
                   </div>
                   {!it.calc&&(
@@ -1026,7 +1026,7 @@ const Parametrage=({D:appData,setD:setAppData,showToast})=>{
                   const id='sav_'+Date.now();
                   updS(st=>({...st,savings:[...st.savings,{id,name:'Nouveau compte',bal:0,monthly:0,color:'#58A6FF'}]}));
                   setAppData(p=>({...p,balances:{...p.balances,[id]:0}}));
-                }}><Ico d={D.plus} s={13}/> Ajouter</button>
+                }}><Ico d={IC.plus} s={13}/> Ajouter</button>
               </div>
               {s.savings.map(a=>(
                 <div key={a.id} style={{padding:'12px',background:'var(--surf2)',borderRadius:10,marginBottom:8}}>
@@ -1039,7 +1039,7 @@ const Parametrage=({D:appData,setD:setAppData,showToast})=>{
                       <NI val={a.monthly} onChange={v=>updS(st=>({...st,savings:st.savings.map(x=>x.id===a.id?{...x,monthly:v}:x)}))}/>
                     </div>
                     <button className="btn btn-g" style={{padding:'4px 6px',color:'var(--rd)'}} onClick={()=>updS(st=>({...st,savings:st.savings.filter(x=>x.id!==a.id)}))}>
-                      <Ico d={D.trash} s={14}/>
+                      <Ico d={IC.trash} s={14}/>
                     </button>
                   </div>
                 </div>
@@ -1053,7 +1053,7 @@ const Parametrage=({D:appData,setD:setAppData,showToast})=>{
               <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:12}}>
                 <p style={{fontSize:15,fontWeight:600}}>Crédits</p>
                 <button className="btn btn-s btn-sm" onClick={()=>updS(st=>({...st,credits:[...st.credits,{id:'crd_'+Date.now(),name:'Nouveau crédit',org:'',init:0,mens:0,ass:0,debut:new Date().toISOString().split('T')[0],fin:'',cap:0}]}))}>
-                  <Ico d={D.plus} s={13}/> Ajouter
+                  <Ico d={IC.plus} s={13}/> Ajouter
                 </button>
               </div>
               {s.credits.map(c=>(
@@ -1061,7 +1061,7 @@ const Parametrage=({D:appData,setD:setAppData,showToast})=>{
                   <div style={{display:'flex',gap:8,marginBottom:8}}>
                     <input className="ifield" value={c.name} placeholder="Nom" onChange={e=>updS(st=>({...st,credits:st.credits.map(x=>x.id===c.id?{...x,name:e.target.value}:x)}))}/>
                     <button className="btn btn-g" style={{padding:'4px 6px',color:'var(--rd)',flexShrink:0}} onClick={()=>updS(st=>({...st,credits:st.credits.filter(x=>x.id!==c.id)}))}>
-                      <Ico d={D.trash} s={14}/>
+                      <Ico d={IC.trash} s={14}/>
                     </button>
                   </div>
                   <input className="ifield" value={c.org} placeholder="Organisme" style={{marginBottom:8}} onChange={e=>updS(st=>({...st,credits:st.credits.map(x=>x.id===c.id?{...x,org:e.target.value}:x)}))}/>
@@ -1172,7 +1172,7 @@ const AppShell=({appData,setAppData,onSync,syncing})=>{
           </div>
           <div style={{padding:'12px 8px',borderTop:'1px solid var(--brd2)'}}>
             <button className="btn btn-g" style={{width:'100%',justifyContent:'flex-start',gap:8}} onClick={onSync} disabled={syncing}>
-              {syncing?<Spin s={14}/>:<Ico d={D.ref} s={14}/>}
+              {syncing?<Spin s={14}/>:<Ico d={IC.ref} s={14}/>}
               <span style={{fontSize:13}}>{syncing?'Synchro...':'Synchroniser Drive'}</span>
             </button>
           </div>
@@ -1192,7 +1192,7 @@ const AppShell=({appData,setAppData,onSync,syncing})=>{
               <span style={{fontSize:12,color:'var(--tx3)',marginRight:4}}>{cur.l}</span>
             )}
             <button className="btn btn-g btn-sm" style={{padding:'6px 8px'}} onClick={onSync} disabled={syncing}>
-              {syncing?<Spin s={14}/>:<Ico d={D.ref} s={14}/>}
+              {syncing?<Spin s={14}/>:<Ico d={IC.ref} s={14}/>}
             </button>
           </div>
         </div>
