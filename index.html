@@ -822,7 +822,7 @@ const Epargne=({D:appData,setD:setAppData,settings,showToast})=>{
   const doTx=()=>{
     if(!txAmt||!modal)return;
     const amt=modal.type==='debit'?-txAmt:txAmt;
-    const newBal=(bal[modal.id]??accounts.find(a=>a.id===modal.id)?.cur||0)+amt;
+    const newBal=((bal[modal.id]??accounts.find(a=>a.id===modal.id)?.cur)||0)+amt;
     setAppData(p=>({...p,
       balances:{...p.balances,[modal.id]:newBal},
       txs:[...(p.txs||[]),{id:Date.now()+'',accId:modal.id,amt,label:txLbl||(modal.type==='debit'?'Dépense':'Versement'),date:new Date().toISOString()}]
